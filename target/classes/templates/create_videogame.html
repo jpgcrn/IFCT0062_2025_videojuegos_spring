@@ -15,25 +15,29 @@
 
 <form th:action="@{/videogames}" th:object="${game}" method="post">
     <label for="title">Título:</label>
-    <input type="text" id="title" th:field="*{title}" required>
+    <input type="text" id="title" name="title" th:field="*{title}" required>
 
     <label for="platform">Plataforma:</label>
-    <input type="text" id="platform" th:field="*{platform}" required>
+    <input type="text" id="platform" name="platform" th:field="*{platform}" required>
 
     <label for="multiplayer">¿Multijugador?</label>
-    <input type="checkbox" id="multiplayer" th:field="*{multiplayer}">
+    <select id="multiplayer" name="multiplayer" th:field="*{multiplayer}">
+        <option value="true">Sí</option>
+        <option value="false">No</option>
+    </select>
+    <!-- <input type="checkbox" id="multiplayer" th:field="*{multiplayer}"> -->
 
     <label for="price">Precio:</label>
-    <input type="number" id="price" th:field="*{price}" step="0.01" required>
+    <input type="number" id="price" name="price" th:field="*{price}" step="1" required>
 
     <label for="genre">Género:</label>
-<!--    <select id="genre" th:field="*{genre.id}">-->
-<!--        <option value="" disabled selected>Selecciona un género</option>-->
-<!--        <option th:each="g : ${genres}"-->
-<!--                th:value="${g.id}"-->
-<!--                th:text="${g.name}">-->
-<!--        </option>-->
-<!--    </select>-->
+    <select id="genre" name="genre"> <!-- th:field="*{genre.id}"> -->
+        <option value="" disabled selected>Selecciona un género</option>
+        <option th:each="g : ${genres}"
+                th:value="${g.id}"
+                th:text="${g.name}">
+        </option>
+    </select>
 
     <button type="submit">Crear Videojuego</button>
     <a href="/"><button type="button">Cancelar</button></a>
