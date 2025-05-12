@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Editar Videojuego</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header>
+    <span th:replace="navbar-fragment :: nav-bar"></span>
+</header>
+
+<h1>Editar Videojuego</h1>
+
+<form th:action="@{/update/{id}(id=${game.id})}" th:object="${game}" method="post">
+    <label for="title">Título:</label>
+    <input type="text" id="title" th:field="*{title}" required>
+
+    <label for="platform">Plataforma:</label>
+    <input type="text" id="platform" th:field="*{platform}" required>
+
+    <label for="multiplayer">¿Multijugador?</label>
+    <input type="checkbox" id="multiplayer" th:field="*{multiplayer}">
+
+    <label for="price">Precio:</label>
+    <input type="number" id="price" th:field="*{price}" step="0.01" required>
+
+    <label for="genre">Género:</label>
+    <select id="genre" th:field="*{genre.id}">
+        <option th:each="g : ${genres}"
+                th:value="${g.id}"
+                th:text="${g.name}"
+                th:selected="${g.id == game.genre.id}">
+        </option>
+    </select>
+
+    <button type="submit">Guardar Cambios</button>
+</form>
+</body>
+</html>

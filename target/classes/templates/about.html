@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Acerca de</title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        .about-box {
+            border: 2px solid #007bff;
+            padding: 20px;
+            margin: 30px auto;
+            max-width: 600px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-box h1 {
+            font-size: 24px;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+
+        .about-box h2 {
+            font-size: 18px;
+            color: #555;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <span th:replace="navbar-fragment :: nav-bar"></span>
+</header>
+
+<div class="about-box">
+    <h1>Curso de Hibernate y Spring</h1>
+    <h2>CRN Getafe</h2>
+</div>
+
+</body>
+</html>

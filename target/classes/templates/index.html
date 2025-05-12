@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mis Videojuegos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <span th:replace="navbar-fragment :: nav-bar"></span>
+        <!-- navbar-fragment es el nombre del template -->
+        <!-- nav-bar es el nombre del fragmento -->
+    </header>
+
+    <h1>Mis Videojuegos</h1>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Título</th>
+            <th>Plataforma</th>
+            <th>Multijugador</th>
+            <th>Precio (&euro;)</th>
+            <th>Género</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="game : ${games}">
+            <td th:text="${game.title}"></td>
+            <td th:text="${game.platform}"></td>
+            <td th:text="${game.multiplayer ? 'Sí' : 'No'}"></td>
+            <td th:text="${game.price}"></td>
+            <td th:text="${game.genre.name}"></td>
+<!--            <td>-->
+<!--                <a th:href="@{/edit/{id}(id=${game.id})}">-->
+<!--                    <button>Editar</button>-->
+<!--                </a>-->
+<!--                <form th:action="@{/delete/{id}(id=${game.id})}" method="post" style="display:inline;">-->
+<!--                    <button type="submit" onclick="return confirm('¿Estás seguro de que deseas eliminar este juego?');">Eliminar</button>-->
+<!--                </form>-->
+<!--            </td>-->
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>
