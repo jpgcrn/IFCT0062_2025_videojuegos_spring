@@ -11,6 +11,37 @@
         <span th:replace="navbar-fragment :: nav-bar"></span>
         <!-- navbar-fragment es el nombre del template -->
         <!-- nav-bar es el nombre del fragmento -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        <style>
+            .action-buttons {
+                display: flex;
+                gap: 0.5rem;
+            }
+
+            .action-buttons button {
+                background-color: transparent;
+                border: none;
+                cursor: pointer;
+                font-size: 1.2rem;
+                padding: 0.5rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .action-buttons button:hover {
+                color: #007bff;
+            }
+
+            .action-buttons form {
+                margin: 0;
+            }
+
+            /* Ajusta la altura al tamaño de la fila */
+            td {
+                vertical-align: middle;
+            }
+        </style>
     </header>
 
     <h1>Mis Videojuegos</h1>
@@ -23,6 +54,7 @@
             <th>Multijugador</th>
             <th>Precio (&euro;)</th>
             <th>Género</th>
+            <th>Acción</th>
         </tr>
         </thead>
         <tbody>
@@ -32,12 +64,27 @@
             <td th:text="${game.multiplayer ? 'Sí' : 'No'}"></td>
             <td th:text="${game.price}"></td>
             <td th:text="${game.genre.name}"></td>
+            <td>
+                <a th:href="@{/delete-videogame(id=${game.id})}"
+                   onclick="return confirm('¿Estás seguro de que deseas eliminar este juego?');">
+<!--                    <img src="/images/delete.png" width="50px">-->
+                    <i class="fas fa-trash-alt"></i>
+                </a>
+<!--                <img src="/images/edit.png" width="50px">-->
+                <a th:href="@{/edit-videogame/{id}(id=${game.id})}">
+                    <i class="fas fa-edit"></i>
+                </a>
+            </td>
 <!--            <td>-->
 <!--                <a th:href="@{/edit/{id}(id=${game.id})}">-->
-<!--                    <button>Editar</button>-->
+<!--                    <button title="Editar">-->
+<!--                        <i class="action-buttons fas fa-edit"></i>-->
+<!--                    </button>-->
 <!--                </a>-->
-<!--                <form th:action="@{/delete/{id}(id=${game.id})}" method="post" style="display:inline;">-->
-<!--                    <button type="submit" onclick="return confirm('¿Estás seguro de que deseas eliminar este juego?');">Eliminar</button>-->
+<!--                <form th:action="@{/delete/{id}(id=${game.id})}" method="post" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este juego?');">-->
+<!--                    <button type="submit" title="Eliminar">-->
+<!--                        <i class="fas fa-trash-alt"></i>-->
+<!--                    </button>-->
 <!--                </form>-->
 <!--            </td>-->
         </tr>

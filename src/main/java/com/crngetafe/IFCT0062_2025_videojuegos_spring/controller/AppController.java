@@ -6,9 +6,8 @@ import com.crngetafe.IFCT0062_2025_videojuegos_spring.services.GenreService;
 import com.crngetafe.IFCT0062_2025_videojuegos_spring.services.VideogameService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -44,6 +43,30 @@ public class AppController {
     @PostMapping("/videogames")
     public String createVideogame(@ModelAttribute Videogame newVideogame) {
         this.videogameService.create(newVideogame);
+        return "redirect:/?message=Juego creado";
+    }
+
+    @GetMapping("/delete-videogame")
+    public String deleteVideogame(@RequestParam Integer id) {
+        this.videogameService.delete(id);
+        return "redirect:/";
+    }
+
+    @GetMapping("/edit-videogame/{id}")
+    public ModelAndView editVideogame(@PathVariable Integer id) {
+        ModelAndView mav = new ModelAndView("/update");
+        Videogame currentVideogame = videogameService.findById(id);
+        List<Genre> genres = this.genreService.getAll();
+
+        mav.addObject("game", currentVideogame);
+        mav.addObject("genres", genres);
+
+        return mav;
+    }
+
+    @PostMapping("/edit-videogame/{id}")
+    public String editVideogame(@ModelAttribute Videogame updatedVideogame) {
+        this.videogameService.update(updatedVideogame);
         return "redirect:/";
     }
 }

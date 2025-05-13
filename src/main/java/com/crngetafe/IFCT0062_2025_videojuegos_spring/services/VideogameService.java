@@ -19,4 +19,16 @@ public class VideogameService {
     public Videogame create(Videogame videogame) {
         return videogameRepository.save(videogame);
     }
+
+    public Videogame findById(int id) {
+        return videogameRepository.findById(id).orElse(null);
+    }
+
+    public Videogame update(Videogame videogame) {
+        return videogameRepository.save(videogame);
+    }
+
+    public void delete(int id) {
+        videogameRepository.deleteById(id);
+    }
 }
