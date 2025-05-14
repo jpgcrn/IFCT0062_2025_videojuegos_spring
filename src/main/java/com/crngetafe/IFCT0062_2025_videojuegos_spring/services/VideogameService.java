@@ -1,5 +1,7 @@
 package com.crngetafe.IFCT0062_2025_videojuegos_spring.services;
 
+import com.crngetafe.IFCT0062_2025_videojuegos_spring.logsystem.LogEvent;
+import com.crngetafe.IFCT0062_2025_videojuegos_spring.logsystem.LogPublisher;
 import com.crngetafe.IFCT0062_2025_videojuegos_spring.model.Videogame;
 import com.crngetafe.IFCT0062_2025_videojuegos_spring.repository.IVideogameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,9 @@ import java.util.List;
 
 @Service
 public class VideogameService implements IVideogameService {
+    @Autowired
+    LogPublisher logPublisher;
+
     @Autowired
     IVideogameRepository videogameRepository;
 
@@ -35,6 +40,7 @@ public class VideogameService implements IVideogameService {
     @Override
     public void delete(int id) {
         videogameRepository.deleteById(id);
+        this.logPublisher.publishLogEvent("El videojuego con id '" + id + "' ha sido borrado.");
     }
 
     @Override

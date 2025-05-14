@@ -74,7 +74,6 @@ public class AppController {
 
     @GetMapping("/search")
     public String searchVideogame(Model model, @RequestParam(required = false) String platform) {
-        System.err.println("******" + platform);
         List<Videogame> videogameList;
         if (platform == null) {
             videogameList = videogameService.getAll();
