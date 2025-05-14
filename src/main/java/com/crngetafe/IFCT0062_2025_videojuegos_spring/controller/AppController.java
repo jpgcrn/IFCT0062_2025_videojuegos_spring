@@ -2,22 +2,24 @@ package com.crngetafe.IFCT0062_2025_videojuegos_spring.controller;
 
 import com.crngetafe.IFCT0062_2025_videojuegos_spring.model.Genre;
 import com.crngetafe.IFCT0062_2025_videojuegos_spring.model.Videogame;
-import com.crngetafe.IFCT0062_2025_videojuegos_spring.services.GenreService;
-import com.crngetafe.IFCT0062_2025_videojuegos_spring.services.VideogameService;
+import com.crngetafe.IFCT0062_2025_videojuegos_spring.services.IGenreService;
+import com.crngetafe.IFCT0062_2025_videojuegos_spring.services.IVideogameService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class AppController {
-    private final VideogameService videogameService;
-    private final GenreService genreService;
+    private final IVideogameService videogameService;
+    private final IGenreService genreService;
 
-    public AppController(VideogameService videogameService,
-                         GenreService genreService) {
+    public AppController(IVideogameService videogameService,
+                         IGenreService genreService) {
         this.videogameService = videogameService;
         this.genreService = genreService;
     }
@@ -68,5 +70,23 @@ public class AppController {
     public String editVideogame(@ModelAttribute Videogame updatedVideogame) {
         this.videogameService.update(updatedVideogame);
         return "redirect:/";
+    }
+
+    @GetMapping("/search")
+    public String searchVideogame(Model model, @RequestParam(required = false) String platform) {
+        System.err.println("******" + platform);
+        List<Videogame> videogameList;
+        if (platform == null) {
+            videogameList = videogameService.getAll();
+        }
+        else {
+            videogameList = videogameService.findByPlatform(platform);
+        }
+        List<String> allPlatforms = videogameService.getAllPlatforms();
+
+        model.addAttribute("platforms", allPlatforms);
+        model.addAttribute("games", videogameList);
+
+        return "searchByPlatform";
     }
 }

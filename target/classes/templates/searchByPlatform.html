@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Buscar Videojuego</title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        .search-box {
+            margin: 30px auto;
+            max-width: 600px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            border: 2px solid #007bff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-box input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        .search-box button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .search-box button:hover {
+            background-color: #0056b3;
+        }
+
+        .results {
+            width: 80%;
+            margin: 0 auto;
+            margin-bottom: 30px;
+        }
+
+        .game-item {
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 15px;
+            background-color: #fff;
+        }
+
+        .game-item:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .game-item h3 {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px;
+            margin: -12px -12px 12px -12px;
+        }
+
+        .game-item p {
+            margin: 6px 0;
+        }
+
+        .game-item strong {
+            display: inline-block;
+            width: 120px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <span th:replace="navbar-fragment :: nav-bar"></span>
+</header>
+
+<h1>Buscar Videojuego por plataforma</h1>
+
+<div class="search-box">
+    <form th:action="@{/search}" method="get">
+        <label for="platform">Plataforma:</label>
+        <select id="platform" name="platform">
+            <option th:each="p : ${platforms}"
+                    th:value="${p}"
+                    th:text="${p}"
+                    th:selected="${p == p}">
+            </option>
+        </select>
+        <button type="submit">Buscar</button>
+    </form>
+</div>
+
+<div class="results">
+    <div th:each="game : ${games}">
+        <div class="game-item">
+            <h3 th:text="${game.title}"></h3>
+            <p><strong>Plataforma:</strong> <span th:text="${game.platform}"></span></p>
+            <p><strong>Género:</strong> <span th:text="${game.genre.name}"></span></p>
+            <p><strong>Precio:</strong> <span th:text="${game.price}"></span></p>
+            <p><strong>Multijugador:</strong> <span th:text="${game.multiplayer ? 'Sí' : 'No'}"></span></p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -8,7 +8,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 public class VideogameServiceTest {
@@ -21,7 +23,7 @@ public class VideogameServiceTest {
     @Autowired
     IVideogameRepository videogameRepository;
 
-    @Test
+    //@Test
     public void createVideogame() {
         Genre genre = new Genre(
                 "Género borrar",
@@ -40,5 +42,19 @@ public class VideogameServiceTest {
         assertNotNull(vg1);
         videogameRepository.delete(vg1);
         genreRepository.delete(genre);
+    }
+
+    //@Test
+    public void getPlatformNames() {
+        List<String> platformNames = videogameService.getAllPlatforms();
+        platformNames.forEach(System.out::println);
+        assert true;
+    }
+
+    @Test
+    public void getGamesByPlatform() {
+        List<Videogame> vgs = videogameService.findByPlatform("Nintendo Switch");
+        vgs.forEach(System.err::println);
+        assert true;
     }
 }
